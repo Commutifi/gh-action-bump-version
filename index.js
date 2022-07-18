@@ -22,7 +22,15 @@ const workspace = process.env.GITHUB_WORKSPACE;
 
   const tagPrefix = process.env['INPUT_TAG-PREFIX'] || '';
   console.log('tagPrefix:', tagPrefix);
-  const messages = event.pull_request.commits ? event.pull_request.commits.map((commit) => commit.message + '\n' + commit.body) : [];
+  const octokit = new github.GitHub(process.env.GITHUB_TOKEN)
+
+  const commitsListed = await octokit.pulls.listCommits({
+    owner: 'Commutifi',
+    repo: event.repository.name,
+    pull_number: event.number,
+  })
+  console.log('result', commitsListed)
+  const messages = (commitsListed || []).map((commit) => commit.message + '\n' + commit.body);
 
   const commitMessage = process.env['INPUT_COMMIT-MESSAGE'] || 'ci: version bump to {{version}}';
   console.log('commit messages:', messages);
