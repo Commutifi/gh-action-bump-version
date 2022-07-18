@@ -1,9 +1,9 @@
 {
   "name": "gh-action-bump-version",
-  "version": "9.0.27",
+  "version": "9.0.28",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phips28/gh-action-bump-version.git"
+    "url": "git+https://github.com/Commutifi/gh-action-bump-version.git"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +19,7 @@
     "test": "npm run end-to-end-test",
     "end-to-end-test": "jest --roots=tests/end-to-end --testTimeout=300000 --runInBand"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^2.1.1",
     "@types/jest": "^27.0.1",
@@ -32,5 +31,6 @@
     "prettier": "^2.3.0",
     "standard": "^14.3.3",
     "tiny-glob": "^0.2.9"
-  }
+  },
+  "devDependencies": {}
 }
