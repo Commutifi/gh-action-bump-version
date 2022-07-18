@@ -15,7 +15,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
 (async () => {
   const pkg = getPackageJson();
   const event = process.env.GITHUB_EVENT_PATH ? require(process.env.GITHUB_EVENT_PATH) : {};
-
+  console.log("Event detected", event);
   if (!event.commits) {
     console.log("Couldn't find any commits in this event, incrementing patch version...");
   }
