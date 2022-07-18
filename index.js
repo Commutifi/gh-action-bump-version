@@ -32,7 +32,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
     pull_number: event.number,
   })
   console.log('result', commitsListed)
-  const messages = (commitsListed || []).map((commit) => commit.message + '\n' + commit.body);
+  const messages = (commitsListed.data || []).map((d) => d.commit.message + '\n' + d.commit.body);
 
   const commitMessage = process.env['INPUT_COMMIT-MESSAGE'] || 'ci: version bump to {{version}}';
   console.log('commit messages:', messages);
