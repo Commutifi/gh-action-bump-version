@@ -34,7 +34,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
   console.log('result', commitsListed)
   const messages = (commitsListed.data || []).map((d) => d.commit.message + '\n' + d.commit.body);
 
-  const commitMessage = process.env['INPUT_COMMIT-MESSAGE'] || 'ci: version bump to {{version}}';
+  const commitMessage = process.env['INPUT_COMMIT-MESSAGE'] || 'chore: version bump {{version}}';
   console.log('commit messages:', messages);
 
   const bumpPolicy = process.env['INPUT_BUMP-POLICY'] || 'all';
@@ -58,10 +58,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
   }
 
   // input wordings for MAJOR, MINOR, PATCH, PRE-RELEASE
-  const majorWords = process.env['INPUT_MAJOR-WORDING'].split(',');
-  const minorWords = process.env['INPUT_MINOR-WORDING'].split(',');
+  const majorWords = (process.env['INPUT_MAJOR-WORDING'] || '#major,BREAKING CHANGE,chore(major),fix(major),refactor(major)').split(',');
+  const minorWords = (process.env['INPUT_MINOR-WORDING'] || 'feat:,#minor,feat(minor),chore(minor),fix(minor),refactor(minor)').split(',');
   // patch is by default empty, and '' would always be true in the includes(''), thats why we handle it separately
-  const patchWords = process.env['INPUT_PATCH-WORDING'] ? process.env['INPUT_PATCH-WORDING'].split(',') : null;
+  const patchWords = (process.env['INPUT_PATCH-WORDING'] || 'fix:,#patch,chore:,chore(patch),fix(patch),refactor(patch)') ? process.env['INPUT_PATCH-WORDING'].split(',') : null;
   const preReleaseWords = process.env['INPUT_RC-WORDING'] ? process.env['INPUT_RC-WORDING'].split(',') : null;
 
   console.log('config words:', { majorWords, minorWords, patchWords, preReleaseWords });
